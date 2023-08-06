@@ -16,9 +16,9 @@ defaultLanguage = "en"
 # registered students
 default = "hidden"
 override.visibility = "registered"
-override.start = 2023-01-01T13:00:00,
+override.start = 2023-01-01T13:00:00
 # if the end date is unspecified, the override applies indefinitely
-override.end = 2123-01-01T13:00:00,
+override.end = 2123-01-01T13:00:00
 
 # Information must be included at least for the default language.
 [information.en]
