@@ -1,0 +1,50 @@
+slug = "multiple_inheritance_cars"
+authors = ["Jane Doe <jane@uzh.ch>"]
+license = "CC BY 4.0"
+
+[information.en]
+title = "Types of cars"
+instructions = "instructions_en.md"
+
+[evaluation]
+docker_image = "python:latest"
+run_command = "python script.py"
+test_command = "python -m unittest tests.py -v"
+grade_command = "python -m private.tests"
+max_attempts = 5
+refill = 86400
+max_points = 4
+
+[files]
+visible = [
+  "task/car.py",
+  "task/combustion_car.py",
+  "task/electric_car.py",
+  "task/hybrid_car.py",
+  "task/script.py",
+  "task/test_cars.py",
+  "task/resource/cars.png",
+]
+editable = [
+  "task/car.py",
+  "task/combustion_car.py",
+  "task/electric_car.py",
+  "task/hybrid_car.py",
+  "task/script.py",
+  "task/test_cars.py",
+]
+grading = [
+  "grading/tests_0_smoke_tests.py",
+  "grading/tests_1_info_hiding_tests.py",
+  "grading/tests_1_inheritance.py",
+  "grading/tests_2a_combustion_car.py",
+  "grading/tests_2b_electric_car.py",
+  "grading/tests_2c_hybrid_car.py",
+]
+solution = [
+  "solution/car.py",
+  "solution/combustion_car.py",
+  "solution/electric_car.py",
+  "solution/hybrid_car.py",
+]
+

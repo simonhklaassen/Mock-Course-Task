@@ -1,0 +1,6 @@
+**/.idea/*
+**/__pycache__/*
+**/__init__.py
+**/.DS_Store
+**/tests_generated.py
+.vscode/
