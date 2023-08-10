@@ -1,8 +1,8 @@
 # Mandatory. This slug will be used for the URL of the course.
 slug = "access-mock-course"
 
-# Mandatory.
-defaultLanguage = "en"
+# Path to optional logo for the course. If absent, a generic logo will be shown.
+logo = "python.svg"
 
 # Mandatory. List of directory paths containing the assignments.
 # ACCESS will show assignments in the order in which they are listed here (regardless of dates defined in assignments).
@@ -13,21 +13,21 @@ defaultLanguage = "en"
 
 # Mandatory. Determines who can see the course in ACCESS at any given time.
 # Visibility can be one of three things:
-#   "public": anyone can enter the course and solve exercises.
-#   "registered": only users registered for the course can enter it.
 #   "hidden": only administrators can see the course.
+#   "registered": only users registered for the course can enter it.
+#   "public": anyone can enter the course and solve exercises.
 # The (optional) override specifies a scheduled change in visibility.
 # In this example, the course is hidden by default but becomes visible for
 # registered students
 [visibility]
 default = "hidden"
-override.visibility = "registered"
-override.start = 2023-01-01T13:00:00
+override = "registered"
+overrideStart = 2023-01-01T13:00:00
 # if the end date is unspecified, the override applies indefinitely
-override.end = 2123-01-01T13:00:00
+overrideEnd = 2123-01-01T13:00:00
 
-# Information for the default language must be specified.
-[information.default]
+# Information for at least one language must be specified.
+[information.en]
 title = "ACCESS Mock Course"
 description = "This course demonstrates how to define ACCESS courses, assignments and tasks."
 university = "University of Zurich"
