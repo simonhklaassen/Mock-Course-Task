@@ -1,42 +1,43 @@
 # Mandatory. This slug will be used for the URL of the course.
-# ACCESS will refuse to import or update a course if the slug is already taken by another course.
 slug = "access-mock-course"
 
 # Mandatory.
 defaultLanguage = "en"
+
+# Mandatory. List of directory paths containing the assignments.
+# ACCESS will show assignments in the order in which they are listed here (regardless of dates defined in assignments).
+"assignments" = [
+  "basics",
+  "classes"
+]
 
 # Mandatory. Determines who can see the course in ACCESS at any given time.
 # Visibility can be one of three things:
 #   "public": anyone can enter the course and solve exercises.
 #   "registered": only users registered for the course can enter it.
 #   "hidden": only administrators can see the course.
-# The override specifies a temporary change in visibility.
-[visibility]
+# The (optional) override specifies a scheduled change in visibility.
 # In this example, the course is hidden by default but becomes visible for
 # registered students
+[visibility]
 default = "hidden"
 override.visibility = "registered"
 override.start = 2023-01-01T13:00:00
 # if the end date is unspecified, the override applies indefinitely
 override.end = 2123-01-01T13:00:00
 
-# Information must be included at least for the default language.
-[information.en]
+# Information for the default language must be specified.
+[information.default]
 title = "ACCESS Mock Course"
 description = "This course demonstrates how to define ACCESS courses, assignments and tasks."
 university = "University of Zurich"
 period = "Spring Semester 2023"
 
+# Additional languages
 [information.de]
 title = "ACCESS Demo-Kurs"
 description = "Dieser Kurs demonstriert, wie man ACCESS-Kurse, -Übungen und -Aufgaben definiert."
 university = "Universität Zürich"
 period = "Frühlings-Semester 2023"
 
-# Mandatory. List of directory paths containing the assignments.
-# ACCESS will show assignments in the order in which they are listed here (regardless of dates defined in assignments).
-[content]
-"assignments" = [
-  "basics",
-  "classes"
-]
+

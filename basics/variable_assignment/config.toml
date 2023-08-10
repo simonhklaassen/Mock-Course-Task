@@ -1,15 +1,16 @@
 # Mandatory. This slug will be used for the URL of the task.
-# ACCESS will refuse to import or update the course if the course/assignment/task slug is already taken by another task.
 slug = "variable-assignment"
 authors = ["Jane Doe <jane@uzh.ch>"]
 license = "CC BY 4.0"
 
+defaultLanguage = "en"
+
 # Mandatory for the default language specified in the course config.toml
-# For each additional language, one may specify an additional instruction markdown file.
-[information.en]
+[information.default]
 title = "Variable assignment"
 instructions = "instructions_en.md"
 
+# For each additional language, one may specify an additional instruction markdown file.
 [information.de]
 title = "Variabelzuweisung"
 instructions = "instructions_de.md"

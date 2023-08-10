@@ -2,7 +2,9 @@ slug = "multiple_inheritance_cars"
 authors = ["Jane Doe <jane@uzh.ch>"]
 license = "CC BY 4.0"
 
-[information.en]
+defaultLanguage = "en"
+
+[information.default]
 title = "Types of cars"
 instructions = "instructions_en.md"
 
