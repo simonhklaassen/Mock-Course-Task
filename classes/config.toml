@@ -4,3 +4,6 @@ end = 2124-01-01T13:00:00
 "tasks" = [
   "cars"
 ]
+[information.en]
+title = "Classes"
+

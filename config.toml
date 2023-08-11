@@ -22,9 +22,9 @@ logo = "python.svg"
 [visibility]
 default = "hidden"
 override = "registered"
-overrideStart = 2023-01-01T13:00:00
+override_start = 2023-01-01T13:00:00
 # if the end date is unspecified, the override applies indefinitely
-overrideEnd = 2123-01-01T13:00:00
+override_end = 2123-01-01T13:00:00
 
 # Information for at least one language must be specified.
 [information.en]

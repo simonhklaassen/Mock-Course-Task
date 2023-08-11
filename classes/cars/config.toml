@@ -1,21 +1,19 @@
 slug = "multiple_inheritance_cars"
 authors = ["Jane Doe <jane@uzh.ch>"]
 license = "CC BY 4.0"
+max_attempts = 5
+refill = 86400
+max_points = 4.5
 
-defaultLanguage = "en"
-
-[information.default]
+[information.en]
 title = "Types of cars"
-instructions = "instructions_en.md"
+instructions_file = "instructions_en.md"
 
-[evaluation]
+[evaluator]
 docker_image = "python:latest"
 run_command = "python script.py"
 test_command = "python -m unittest tests.py -v"
 grade_command = "python -m private.tests"
-max_attempts = 5
-refill = 86400
-max_points = 4
 
 [files]
 visible = [
