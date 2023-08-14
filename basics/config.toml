@@ -13,7 +13,8 @@ end = 2028-01-01T13:00:00
 # Mandatory. List of directory paths containing the tasks.
 # ACCESS will show tasks in the order in which they are listed here.
 "tasks" = [
-  "variable_assignment"
+  "variable_assignment",
+  "formula"
 ]
 
 # Information for at least one language must be specified.

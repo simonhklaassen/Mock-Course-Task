@@ -4,3 +4,4 @@
 **/.DS_Store
 **/tests_generated.py
 .vscode/
+**/grade_results.json
