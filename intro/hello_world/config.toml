@@ -1,5 +1,5 @@
 # Mandatory. This slug will be used for the URL of the task.
-slug = "variable-assignment"
+slug = "hello"
 authors = ["Jane Doe <jane@uzh.ch>"]
 license = "CC BY 4.0"
 
@@ -8,16 +8,16 @@ max_attempts = 3 # integer
 # Optional. After this number of seconds, the number of available attempts will increase by 1 (not exceeding the maximum)
 refill = 86400 # integer
 # Number of points awarded for a perfect solution
-max_points = 2.5 # double
+max_points = 1 # double
 
 # Mandatory for the default language specified in the course config.toml
 [information.en]
-title = "Variable assignment"
+title = "Hello, World!"
 instructions_file = "instructions_en.md"
 
 # For each additional language, one may specify an additional instruction markdown file.
 [information.de]
-title = "Variabelzuweisung"
+title = "Hallo, Welt!"
 instructions_file = "instructions_de.md"
 
 [evaluator]
@@ -25,8 +25,6 @@ instructions_file = "instructions_de.md"
 docker_image = "python:latest"
 # Command used to run code
 run_command = "python script.py"
-# Command used to run tests
-test_command = "python -m unittest tests.py -v"
 # Command used to grade submissions
 grade_command = "python -m grading.tests"
 
