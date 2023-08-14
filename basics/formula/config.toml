@@ -27,12 +27,12 @@ grade_command = "python -m grading.tests"
 
 [files]
 visible = [
-  "task/script.py",
-  "task/tests.py",
+  "script.py",
+  "tests.py",
 ]
 editable = [
-  "task/script.py",
-  "task/tests.py",
+  "script.py",
+  "tests.py",
 ]
 grading = [
   "grading/tests.py",
