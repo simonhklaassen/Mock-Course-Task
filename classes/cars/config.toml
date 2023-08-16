@@ -12,26 +12,26 @@ instructions_file = "instructions_en.md"
 [evaluator]
 docker_image = "python:latest"
 run_command = "python script.py"
-test_command = "python -m unittest tests.py -v"
-grade_command = "python -m private.tests"
+test_command = "python -m unittest discover -v public"
+grade_command = "python -m unittest discover grading"
 
 [files]
 visible = [
-  "task/car.py",
-  "task/combustion_car.py",
-  "task/electric_car.py",
-  "task/hybrid_car.py",
-  "task/script.py",
-  "task/test_cars.py",
-  "task/resource/cars.png",
+  "public/car.py",
+  "public/combustion_car.py",
+  "public/electric_car.py",
+  "public/hybrid_car.py",
+  "public/script.py",
+  "public/test_cars.py",
+  "public/resource/cars.png",
 ]
 editable = [
-  "task/car.py",
-  "task/combustion_car.py",
-  "task/electric_car.py",
-  "task/hybrid_car.py",
-  "task/script.py",
-  "task/test_cars.py",
+  "public/car.py",
+  "public/combustion_car.py",
+  "public/electric_car.py",
+  "public/hybrid_car.py",
+  "public/script.py",
+  "public/test_cars.py",
 ]
 grading = [
   "grading/tests_0_smoke_tests.py",

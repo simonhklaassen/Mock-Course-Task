@@ -44,7 +44,21 @@ def get_non_method_members(ts):
 
 class PrivateInformationHidingTestSuite(TestCase):
 
+    # ensures 0 points are awarded for an empty submission
+    def _check_implementation(self):
+        import inspect
+
+        for t in TYPES:
+            source = inspect.getsource(t.drive)
+            # Throw fail if the source contains pass
+            if "pass" in source:
+                m = "@@The implementation of {} is not complete.@@".format(
+                    TYPES[t]
+                )
+                self.fail(m)
+
     def test_instance_variables(self):
+        self._check_implementation()
         for instance in INSTANCES:
             static = get_non_method_members(type(instance))
             for attr_name in dir(instance):
@@ -60,6 +74,7 @@ class PrivateInformationHidingTestSuite(TestCase):
                 self.fail(m)
 
     def test_global_state(self):
+        self._check_implementation()
         for t in TYPES:
             path = TYPES[t]
             with open(path) as f:
@@ -73,6 +88,7 @@ class PrivateInformationHidingTestSuite(TestCase):
                 self.assertFalse(v.hasAssignInGlobalScope, m)
 
     def test_static_variables(self):
+        self._check_implementation()
         predef = get_non_method_members([object, TestCase, ABC]) # built-int type + imported type + ABC
         for t in TYPES:
             for attr_name in get_non_method_members(t): # attributes of the _class_

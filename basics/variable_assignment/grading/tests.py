@@ -1,7 +1,7 @@
 import unittest
 import inspect
 import json
-import task.script as implementation
+import script as implementation
 
 
 class PublicTestSuite(unittest.TestCase):
