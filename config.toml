@@ -41,4 +41,11 @@ description = "Dieser Kurs demonstriert, wie man ACCESS-Kurse, -Übungen und -Au
 university = "Universität Zürich"
 period = "Frühlings-Semester 2023"
 
+# Files specified here will be copied into every execution.
+# Particularily useful for code shared by all grading tests.
+# For now, only grading files are supported.
+[global_files]
+grading = [
+  "universal/harness.py",
+]
 
