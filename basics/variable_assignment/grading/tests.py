@@ -10,6 +10,7 @@ except: sys.path.append("../../universal/"); from harness import *
 import inspect
 import json
 import script as implementation
+
 class PublicTestSuite(AccessTestSuite):
 
     @feedback(1, "x is not 42")

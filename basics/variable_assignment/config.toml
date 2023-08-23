@@ -28,7 +28,7 @@ run_command = "python script.py"
 # Command used to run tests
 test_command = "python -m unittest tests.py -v"
 # Command used to grade submissions
-grade_command = "python -m grading.tests"
+grade_command = "python -m unittest discover -v grading"
 
 [files]
 visible = [
