@@ -6,20 +6,25 @@ try: from universal.harness import *
 except: sys.path.append("../../universal/"); from harness import *
 
 # Grading test suite starts here
-
 import inspect
-import json
-import script as implementation
 
-class PublicTestSuite(AccessTestSuite):
+# Instead of doing the usual
+# import task.script as implementation
+# use grading_import which will take care of catching and reporting import errors
+implementation = grading_import("task", "script")
 
-    @feedback(1, "x is not 42")
+class GradingTests(AccessTestCase):
+
+    @marks(1)
     def test_x_is_42(self):
-        self.assertEqual(implementation.x, 42)
+        self.assertEqual(implementation.x, 42, "x is not 42")
 
-    @feedback(1, "The solution seems to contain x = 42, please assign something slighty more complex")
+    @marks(1)
     def test_x_is_not_literally_42(self):
         self.test_x_is_42()
         source = inspect.getsource(implementation)
-        self.assertTrue("x=42" not in ''.join(source.split()))
+        self.assertTrue("x=42" not in ''.join(source.split()),
+          "The solution seems to contain x = 42, please assign something slighty more complex")
+
+TestRunner(verbosity=2, resultclass=AccessResult).run(AccessTestSuite(2, [GradingTests]))
 

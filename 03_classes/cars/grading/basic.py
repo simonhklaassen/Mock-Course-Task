@@ -1,25 +1,20 @@
 #!/usr/bin/env python3
 
-import builtins, sys
-from unittest import TestCase
+# Scaffolding necessary to set up ACCESS test
+import sys
+try: from universal.harness import *
+except: sys.path.append("../../universal/"); from harness import *
 
-# replace input implementation
-class YouCannotUseInputInACCESSException(Exception): pass
-def crashing_input(prompt):
-    raise YouCannotUseInputInACCESSException()
-builtins.input_orig = builtins.input
-builtins.input = crashing_input
+# Grading test suite starts here
 
-# catch potential exception from import
-import_ex = None
-try:
-    from public.combustion_car import CombustionCar
-    from public.electric_car import ElectricCar
-    from public.hybrid_car import HybridCar
-except:
-    import_ex = sys.exc_info()[0].__name__
+# instead of doing the usual:
+# from task.combustion_car import CombustionCar
+# use grading_import which will take care of catching and reporting import errors
+CombustionCar = grading_import("task.combustion_car", "CombustionCar")
+ElectricCar = grading_import("task.electric_car", "ElectricCar")
+HybridCar = grading_import("task.hybrid_car", "HybridCar")
 
-class PrivateSmokeTestSuite(TestCase):
+class TestBasics(AccessTestCase):
 
     def _run_example(self):
         # script
@@ -50,28 +45,26 @@ class PrivateSmokeTestSuite(TestCase):
         c.drive(25.0)
         self.assertAlmostEqual(38.0, c.get_gas_tank_status()[0], delta=0.001)
 
+    @marks(1)
     def test0_example(self):
-        if import_ex:
-            m = "@@Failed to import at least one of the implementation scripts due to a '{}'.@@".format(import_ex)
-            self.fail(m)
-
         try:
             self._run_example()
         except AssertionError:
-            m = "@@Running the provided example has an incorrect result. Make sure that " +\
-                "the public script and test suite pass, before you attempt any submissions.@@"
+            m = "Running examples provided in task.py produce incorrect results. Make sure that " +\
+                "the task script and test suite pass, before you attempt any submissions."
             self.fail(m)
         except:
-            m = "@@Failed to run the provided example. Make sure that the public script and test " +\
-                "suite passes, before you attempt any submissions.@@"
+            m = "Failed to run the provided example. Make sure that the task script and test " +\
+                "suite passes, before you attempt any submissions."
             self.fail(m)
 
+    @marks(1)
     def test1_repeatability(self):
         try:
             self._run_example()
             self._run_example()
         except:
-            m = "@@Failed to run the provided script and test suite a second time. This might be caused by shared " +\
+            m = "Failed to run the provided script and test suite twice in a row. This might be caused by shared " +\
                 "class variables that introduce unexpected side effects. We highly encourage you to " +\
-                "add your own tests to the public test suite before you attempt any submissions.@@"
+                "add your own tests to the task test suite before you attempt any submissions."
             self.fail(m)

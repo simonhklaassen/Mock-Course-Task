@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-from public.car import Car
+from task.car import Car
 
 def assertPositiveFloat(n):
     if type(n) is not float or n < 0:

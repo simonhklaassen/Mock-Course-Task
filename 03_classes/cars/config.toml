@@ -11,35 +11,35 @@ instructions_file = "instructions_en.md"
 
 [evaluator]
 docker_image = "python:latest"
-run_command = "python script.py"
-test_command = "python -m unittest discover -v public"
-grade_command = "python -m unittest discover grading"
+run_command = "python -m task.script"
+test_command = "python -m unittest discover -v task"
+grade_command = "python -m unittest grading.tests"
 
 [files]
 visible = [
-  "public/car.py",
-  "public/combustion_car.py",
-  "public/electric_car.py",
-  "public/hybrid_car.py",
-  "public/script.py",
-  "public/test_cars.py",
-  "public/resource/cars.png",
+  "task/car.py",
+  "task/combustion_car.py",
+  "task/electric_car.py",
+  "task/hybrid_car.py",
+  "task/script.py",
+  "task/test_cars.py",
+  "task/resource/cars.png",
 ]
 editable = [
-  "public/car.py",
-  "public/combustion_car.py",
-  "public/electric_car.py",
-  "public/hybrid_car.py",
-  "public/script.py",
-  "public/test_cars.py",
+  "task/car.py",
+  "task/combustion_car.py",
+  "task/electric_car.py",
+  "task/hybrid_car.py",
+  "task/script.py",
+  "task/test_cars.py",
 ]
 grading = [
-  "grading/tests_0_smoke_tests.py",
-  "grading/tests_1_info_hiding_tests.py",
-  "grading/tests_1_inheritance.py",
-  "grading/tests_2a_combustion_car.py",
-  "grading/tests_2b_electric_car.py",
-  "grading/tests_2c_hybrid_car.py",
+  "grading/basic.py",
+  "grading/info_hiding.py",
+  "grading/inheritance.py",
+  "grading/combustion_car.py",
+  "grading/electric_car.py",
+  "grading/hybrid_car.py",
 ]
 solution = [
   "solution/car.py",

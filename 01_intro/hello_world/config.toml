@@ -24,16 +24,16 @@ instructions_file = "instructions_de.md"
 # Image will be pulled from docker hub if not yet present
 docker_image = "python:latest"
 # Command used to run code
-run_command = "python script.py"
+run_command = "python task/script.py"
 # Command used to grade submissions
-grade_command = "python -m grading.tests"
+grade_command = "python -m unittest grading.tests"
 
 [files]
 visible = [
-  "script.py",
+  "task/script.py",
 ]
 editable = [
-  "script.py",
+  "task/script.py",
 ]
 grading = [
   "grading/tests.py",

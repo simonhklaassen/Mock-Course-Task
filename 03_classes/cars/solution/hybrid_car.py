@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
-from public.combustion_car import CombustionCar
-from public.electric_car import ElectricCar
+from task.combustion_car import CombustionCar
+from task.electric_car import ElectricCar
 
 def assertPositiveFloat(n):
     if type(n) is not float or n < 0:

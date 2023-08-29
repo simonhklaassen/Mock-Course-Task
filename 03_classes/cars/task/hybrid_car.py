@@ -4,17 +4,18 @@
 # UML diagram. Do not change the class name or the method signatures
 # or the automated grading won't work.
 
-from public.car import Car
+from task.combustion_car import CombustionCar
+from task.electric_car import ElectricCar
 
-class ElectricCar:
+class HybridCar:
 
-    def __init__(self, battery_size, battery_range_km):
+    def __init__(self, gas_capacity, gas_per_100km, battery_size, battery_range_km):
         pass
 
-    def charge(self, kwh):
+    def switch_to_combustion(self):
         pass
 
-    def get_battery_status(self):
+    def switch_to_electric(self):
         pass
 
     def get_remaining_range(self):

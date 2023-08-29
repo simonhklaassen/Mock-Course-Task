@@ -1,50 +1,42 @@
-import unittest
-import json
+#!/usr/bin/env python3
 
-import script
+# Scaffolding necessary to set up ACCESS test
+import sys
+try: from universal.harness import *
+except: sys.path.append("../../universal/"); from harness import *
+
+# Grading test suite starts here
+implementation = grading_import("task", "script")
 
 def calculate(a, b, c, d):
-    script.a = a
-    script.b = b
-    script.c = c
-    script.d = d
-    return script.calculate()
+    implementation.a = a
+    implementation.b = b
+    implementation.c = c
+    implementation.d = d
+    return implementation.calculate()
 
 
-class PublicTestSuite(unittest.TestCase):
-
-    @classmethod
-    def setUpClass(cls):
-        cls.grade_results = {'points': 0, 'hints': []}
-        cls.hint = None
-
-    @classmethod
-    def tearDownClass(cls):
-        with open('grade_results.json', 'w') as grade_results_file:
-            json.dump(cls.grade_results, grade_results_file)
-
-    def tearDown(self):
-        if self.hint:
-            self.grade_results['hints'].append(self.hint)
+class GradingTests(AccessTestCase):
 
     def _test(self, a, b, c, d, expected):
         actual = calculate(a, b, c, d)
-        self.hint = "Calculation not correct for a={}, b={}, c={}, d={}... expected result is {}!".format(a, b, c, d, expected)
-        self.assertAlmostEqual(expected, actual, 5)
-        self.grade_results['points'] += 1
-        self.hint = None
+        hint = "Calculation not correct for a={}, b={}, c={}, d={}... expected result is {}!".format(a, b, c, d, expected)
+        self.assertAlmostEqual(expected, actual, 5, hint)
 
+    @marks(0.25)
     def test_case1(self):
         self._test(1, 2, 3, 4, 1.444444)
 
+    @marks(0.25)
     def test_case2(self):
         self._test(2, 3, 4, 5, 2.428571)
 
+    @marks(0.25)
     def test_case3(self):
         self._test(3, 4, 5, 6, 3.432432)
 
+    @marks(0.25)
     def test_case4(self):
         self._test(4, 5, 6, 7, 4.438596)
 
-if __name__ == '__main__':
-    unittest.main(verbosity=2)
+TestRunner(verbosity=2, resultclass=AccessResult).run(AccessTestSuite(1, [GradingTests]))
