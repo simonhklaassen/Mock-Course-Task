@@ -23,5 +23,5 @@ test_suite = AccessTestSuite(4.5, [
     TestInformationHiding
 ])
 
-TestRunner(verbosity=2, resultclass=AccessResult).run(test_suite)
+TestRunner().run(test_suite)
 

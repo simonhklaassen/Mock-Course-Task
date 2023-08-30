@@ -25,8 +25,10 @@ instructions_file = "instructions_de.md"
 docker_image = "python:latest"
 # Command used to run code
 run_command = "python task/script.py"
+# Command used to execute the student's test suite
+test_command = "python -m unittest task/tests.py"
 # Command used to grade submissions
-grade_command = "python -m unittest grading.tests"
+grade_command = "python -m grading.tests"
 
 [files]
 visible = [

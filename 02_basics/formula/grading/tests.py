@@ -39,4 +39,4 @@ class GradingTests(AccessTestCase):
     def test_case4(self):
         self._test(4, 5, 6, 7, 4.438596)
 
-TestRunner(verbosity=2, resultclass=AccessResult).run(AccessTestSuite(1, [GradingTests]))
+TestRunner().run(AccessTestSuite(1, [GradingTests]))

@@ -40,6 +40,7 @@ grading = [
   "grading/combustion_car.py",
   "grading/electric_car.py",
   "grading/hybrid_car.py",
+  "grading/tests.py",
 ]
 solution = [
   "solution/car.py",

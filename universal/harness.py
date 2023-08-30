@@ -176,4 +176,6 @@ class AccessTestCase(TestCase):
             self.grade_result = GradeResult(full_test_name, self.marks[test_name], None, False, True)
         failure_hint = None
 
-class TestRunner(TextTestRunner): pass
+class TestRunner(TextTestRunner):
+    def __init__(self):
+        super().__init__(verbosity=2, resultclass=AccessResult)

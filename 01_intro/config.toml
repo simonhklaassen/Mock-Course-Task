@@ -1,5 +1,8 @@
 # Mandatory. This slug will be used for the URL of the assignment.
-# ACCESS will refuse to import or update the course if the course/assignment slug is already taken by another assignment.
+# The slug should NOT be changed if possible. If the following slug would change
+# then the assignment with slug "hello" would be disabled, and a new assignment
+# would be created in ACCESS. To students who already submitted solutions, it
+# would appear as if all their data is gone.
 slug = "hello"
 
 # Mandatory.

@@ -20,4 +20,4 @@ class GradingTests(AccessTestCase):
             capture.getvalue(), "Hello, World!\n",
             "The output is not 'Hello, World!'")
 
-TestRunner(verbosity=2, resultclass=AccessResult).run(AccessTestSuite(1, [GradingTests]))
+TestRunner().run(AccessTestSuite(1, [GradingTests]))

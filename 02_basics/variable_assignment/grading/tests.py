@@ -26,5 +26,5 @@ class GradingTests(AccessTestCase):
         self.assertTrue("x=42" not in ''.join(source.split()),
           "The solution seems to contain x = 42, please assign something slighty more complex")
 
-TestRunner(verbosity=2, resultclass=AccessResult).run(AccessTestSuite(2, [GradingTests]))
+TestRunner().run(AccessTestSuite(2, [GradingTests]))
 
