@@ -101,7 +101,7 @@ languages. English is required (for now).
 To validate this course or any of its assignments and tasks using `access-cli`, run
 
 ```
-access-cli -AGs "rm -R task; cp -R solution task"
+access-cli -AGs "rm -R task; cp -R solution task" -d ./ -f universal/harness.py -C ./
 ```
 
 Add `-v` for verbose output.

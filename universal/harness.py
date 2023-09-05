@@ -1,5 +1,6 @@
 import builtins
 import inspect
+from collections import defaultdict
 from dataclasses import dataclass, astuple
 from unittest import TestCase, TestSuite, TextTestResult, TextTestRunner, defaultTestLoader
 import json
@@ -134,7 +135,7 @@ class AccessTestCase(TestCase):
             cls.skip_all_tests = True
             cls.skip_reason = f"Failed to import {name} from {module}: {e}. Make sure your code runs with the provided command."
         # marks for each test method, as provided using the @marks annotation
-        cls.marks = {}
+        cls.marks = defaultdict(lambda: 1)
 
     def setUp(self):
         # If we're skipping all tests, do nothing

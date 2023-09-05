@@ -15,7 +15,7 @@ implementation = grading_import("task", "script")
 
 class GradingTests(AccessTestCase):
 
-    @marks(1)
+    #@marks(1) # is the default anyway
     def test_x_is_42(self):
         self.assertEqual(implementation.x, 42, "x is not 42")
 

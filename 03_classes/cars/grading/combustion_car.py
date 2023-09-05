@@ -10,7 +10,7 @@ CombustionCar = grading_import("task.combustion_car", "CombustionCar")
 
 class TestCombustionCar(AccessTestCase):
 
-    @marks(1)
+    #@marks(1) # optional, because marks(1) is the default
     def test00_gas_init(self):
         try:
             sut = CombustionCar(123.4, 3.45)
@@ -22,7 +22,6 @@ class TestCombustionCar(AccessTestCase):
         self.assertAlmostEqual(123.4, actual_cur, delta=0.001, msg=m)
         self.assertAlmostEqual(123.4, actual_max, delta=0.001, msg=m)
 
-    @marks(1)
     def test01_remaining_range(self):
         try:
             sut = CombustionCar(12.0, 2.5)
@@ -34,7 +33,6 @@ class TestCombustionCar(AccessTestCase):
         m = "Incorrect result when checking the remaining range of a CombustionCar with a full tank."
         self.assertAlmostEqual(expected, actual, delta=0.001, msg=m)
 
-    @marks(1)
     def test02_drive(self):
         try:
             sut = CombustionCar(12.0, 2.5)
@@ -47,7 +45,6 @@ class TestCombustionCar(AccessTestCase):
         self.assertAlmostEqual(9.5, actual_cur, delta=0.001, msg=m)
         self.assertAlmostEqual(12.0, actual_max, delta=0.001, msg=m)
 
-    @marks(1)
     def test03_error_drive_wrong_type(self):
         try:
             sut = CombustionCar(10.0, 2.5)
@@ -61,7 +58,6 @@ class TestCombustionCar(AccessTestCase):
             m = "Passing a non-float to 'CombustionCar.drive' should raise a Warning."
             self.fail(m)
 
-    @marks(1)
     def test04_error_drive_too_small(self):
         try:
             sut = CombustionCar(10.0, 2.5)
@@ -75,7 +71,6 @@ class TestCombustionCar(AccessTestCase):
             m = "Passing a negative distance to 'CombustionCar.drive' should raise a Warning."
             self.fail(m)
 
-    @marks(1)
     def test05_error_drive_too_far(self):
         try:
             sut = CombustionCar(10.0, 2.5)
@@ -89,7 +84,6 @@ class TestCombustionCar(AccessTestCase):
             m = "Driving a CombustionCar until the gas tank is depleted should raise a Warning."
             self.fail(m)
 
-    @marks(1)
     def test06_error_drive_too_far_depletes_gas_tank(self):
         try:
             sut = CombustionCar(10.0, 2.5)
@@ -105,7 +99,6 @@ class TestCombustionCar(AccessTestCase):
         m = "Driving a CombustionCar until the gas tank is depleted should remove all gas from the tank."
         self.assertEqual((0, 10), actual, m)
 
-    @marks(1)
     def test07_fuel(self):
         try:
             sut = CombustionCar(12.0, 2.5)
@@ -119,7 +112,6 @@ class TestCombustionCar(AccessTestCase):
         self.assertAlmostEqual(10.5, actual_cur, delta=0.001, msg=m)
         self.assertAlmostEqual(12.0, actual_max, delta=0.001, msg=m)
 
-    @marks(1)
     def test08_error_fuel_overfill(self):
         try:
             sut = CombustionCar(10.0, 2.5)
@@ -134,7 +126,6 @@ class TestCombustionCar(AccessTestCase):
             m = "Overfilling the gas tank of a CombustionCar after a drive should raise a Warning."
             self.fail(m)
 
-    @marks(1)
     def test09_error_init_capacity_type(self):
         try:
             CombustionCar("", 3.45)
@@ -147,7 +138,6 @@ class TestCombustionCar(AccessTestCase):
             m = "Initializing a CombustionCar with a non-float tank capacity should raise a Warning."
             self.fail(m)
 
-    @marks(1)
     def test10_error_init_capacity_value(self):
         try:
             CombustionCar(-1.0, 3.45)
@@ -160,7 +150,6 @@ class TestCombustionCar(AccessTestCase):
             m = "Initializing a CombustionCar with a non-positive tank capacity should raise a Warning."
             self.fail(m)
 
-    @marks(1)
     def test11_error_init_mileage_type(self):
         try:
             CombustionCar(123.4, "")
@@ -173,7 +162,6 @@ class TestCombustionCar(AccessTestCase):
             m = "Initializing a CombustionCar with a non-float mileage should raise a Warning."
             self.fail(m)
 
-    @marks(1)
     def test12_error_init_mileage_value(self):
         try:
             CombustionCar(123.4, -1.0)
