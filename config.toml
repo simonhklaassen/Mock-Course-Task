@@ -50,5 +50,6 @@ period = "Frühlings-Semester 2023"
 [global_files]
 grading = [
   "universal/harness.py",
+  "universal/testing_task_harness.py",
 ]
 

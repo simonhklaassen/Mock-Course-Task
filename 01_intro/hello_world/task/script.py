@@ -1,3 +1,5 @@
 #!/usr/bin/env python3
 
-# Write your code here
+# Modify the following code
+print("This sentence will be printed to the command line.")
+

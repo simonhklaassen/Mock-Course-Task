@@ -15,16 +15,15 @@ implementation = grading_import("task", "script")
 
 class GradingTests(AccessTestCase):
 
-    #@marks(1) # is the default anyway
     def test_x_is_42(self):
-        self.assertEqual(implementation.x, 42, "x is not 42")
+        self.hint("x is not 42")
+        self.assertEqual(implementation.x, 42)
 
-    @marks(1)
     def test_x_is_not_literally_42(self):
         self.test_x_is_42()
+        self.hint("The solution seems to contain x = 42, please assign something slighty more complex")
         source = inspect.getsource(implementation)
-        self.assertTrue("x=42" not in ''.join(source.split()),
-          "The solution seems to contain x = 42, please assign something slighty more complex")
+        self.assertTrue("x=42" not in ''.join(source.split()))
 
 TestRunner().run(AccessTestSuite(2, [GradingTests]))
 

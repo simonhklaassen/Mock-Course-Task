@@ -7,10 +7,9 @@ from task.combustion_car import CombustionCar
 from task.electric_car import ElectricCar
 from task.hybrid_car import HybridCar
 
-c = CombustionCar(40.0, 8.0)
+# You can uncomment the following code to start tinkering with your solution
 
-# As you implement your solution, you can uncomment code as needed
-
+#c = CombustionCar(40.0, 8.0)
 #c.get_remaining_range() # 500
 #c.drive(25.0)
 #c.get_gas_tank_status() # (38.0, 40.0)

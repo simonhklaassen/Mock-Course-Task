@@ -1,46 +1,43 @@
-slug = "multiple_inheritance_cars"
-authors = ["Jane Doe <jane@uzh.ch>"]
-license = "CC BY 4.0"
+slug = "carpark-multiple-inheritance"
+
 max_attempts = 5
-refill = 86400
-max_points = 4.5
+refill = 43200 # 12 hours
+max_points = 4
 
 [information.en]
-title = "Types of cars"
+title = "Car Types"
 instructions_file = "instructions_en.md"
 
 [evaluator]
 docker_image = "python:latest"
 run_command = "python -m task.script"
 test_command = "python -m unittest discover -v task"
-grade_command = "python -m unittest grading.tests"
+grade_command = "python -m grading.tests"
 
 [files]
 visible = [
+  "task/script.py",
   "task/car.py",
   "task/combustion_car.py",
   "task/electric_car.py",
   "task/hybrid_car.py",
-  "task/script.py",
-  "task/test_cars.py",
-  "task/resource/cars.png",
+  "task/tests.py",
+  "resource/cars.png",
 ]
 editable = [
+  "task/script.py",
   "task/car.py",
   "task/combustion_car.py",
   "task/electric_car.py",
   "task/hybrid_car.py",
-  "task/script.py",
-  "task/test_cars.py",
+  "task/tests.py",
 ]
 grading = [
-  "grading/basic.py",
-  "grading/info_hiding.py",
-  "grading/inheritance.py",
-  "grading/combustion_car.py",
-  "grading/electric_car.py",
-  "grading/hybrid_car.py",
   "grading/tests.py",
+  "grading/tests_1_inheritance.py",
+  "grading/tests_2a_combustion_car.py",
+  "grading/tests_2b_electric_car.py",
+  "grading/tests_2c_hybrid_car.py",
 ]
 solution = [
   "solution/car.py",

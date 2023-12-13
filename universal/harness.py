@@ -6,12 +6,7 @@ from unittest import TestCase, TestSuite, TextTestResult, TextTestRunner, defaul
 import json
 import sys
 
-failure_hint = None
-class GradingException(Exception):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        global failure_hint
-        failure_hint = args[0]
+class GradingException(Exception): pass
 
 # Input should never be used in ACCESS
 class YouCannotUseInputInACCESSException(Exception): pass
@@ -22,18 +17,23 @@ builtins.input = crashing_input
 
 # This exception basically shouldn't occur, if it does, report an issue
 class MissingHintException(Exception): pass
+MISSING_HINT = "No solution hint (report this as an issue)"
 
 import_errors = []
-def grading_import(module, name):
+def grading_import(module, name=None):
     try:
-        result = __import__(module, fromlist=[name])
-        return getattr(result, name)
+        if name is not None:
+            result = __import__(module, fromlist=[name])
+            return getattr(result, name)
+        else:
+            return __import__(module)
     except ImportError as e:
         import_errors.append((module, name, e))
         return None
     except BaseException as e:
         import_errors.append((module, name, e))
         return None
+
 
 class AccessTestSuite(TestSuite):
     def __init__(self, max_points, test_classes):
@@ -49,27 +49,32 @@ class AccessTestSuite(TestSuite):
     def run(self, result, debug=False):
         # run the tests in the suite
         super().run(result, debug)
-        max_marks = 0
-        awarded_marks = 0
+        max_weight = 0
+        awarded_weight = 0
         # We prioritize failure hints, because they are more useful.
         failure_hints = []
         error_hints = []
+        missing = []
         for test_name in self.test_names:
-            test_name, marks, hint, isError, isSuccess = astuple(result.grade_results[test_name])
-            max_marks += marks
+            test_name, weight, hint, isError, isSuccess = astuple(result.grade_results[test_name])
+            if hint == MISSING_HINT:
+                missing.append(test_name)
+            max_weight += weight
             if isSuccess:
-                awarded_marks += marks
+                awarded_weight += weight
             if isError:
                 error_hints.append(hint)
             else:
                 failure_hints.append(hint)
-        awarded_points = (awarded_marks / max_marks) * self.max_points
+        if len(missing) > 0:
+            print(f"ERROR: grade_results not written; missing hints for: {', '.join(missing)}")
+            sys.exit(1)
+        awarded_points = (awarded_weight / max_weight) * self.max_points
         grading_results = {"points": awarded_points,
                            "hints": failure_hints + error_hints}
+        #print(grading_results)
         with open('grade_results.json', 'w') as grade_results_file:
             json.dump(grading_results, grade_results_file)
-
-
         return result
 
 class AccessResult(TextTestResult):
@@ -96,24 +101,23 @@ class AccessResult(TextTestResult):
 @dataclass
 class GradeResult:
     test_name: str
-    marks: int
+    weight: int
     hint: str
     isError: bool = False
     success: bool = False
 
-def marks(marks):
-    """Supply the awarded marks for a given test method"""
+def weight(weight):
+    """Supply the awarded weight for a given test method"""
     def decorator(func):
         test_name = func.__name__
         def wrapper(*args, **kwargs):
             instance = args[0]
-            instance.marks[test_name] = marks
+            instance.weight[test_name] = weight
             return func(*args, **kwargs)
         return wrapper
     return decorator
 
 class AccessTestCase(TestCase):
-    failureException = GradingException
     longMessage = False
 
     def __init__(self, methodName='runTest'):
@@ -133,49 +137,78 @@ class AccessTestCase(TestCase):
         if import_errors:
             module, name, e = import_errors[0]
             cls.skip_all_tests = True
-            cls.skip_reason = f"Failed to import {name} from {module}: {e}. Make sure your code runs with the provided command."
-        # marks for each test method, as provided using the @marks annotation
-        cls.marks = defaultdict(lambda: 1)
+            if name is None:
+                cls.skip_reason = f"Failed to import {module}: {e}. Make sure your code runs before submitting."
+            else:
+                cls.skip_reason = f"Failed to import {name} from {module}: {e}. Make sure your code runs before submitting."
+        # weight for each test method, as provided using the @weight annotation
+        cls.weight = defaultdict(lambda: 1)
+        cls._hint = {}
 
     def setUp(self):
         # If we're skipping all tests, do nothing
-        if self.skip_all_tests:
-            self.skipTest('Skipping all tests')
+        #if self.skip_all_tests:
+        #    self.skipTest('Skipping all tests')
         # Snapshot current overall test results so we'll be able
         # to compare with after the test runs
+        self.addCleanup(self.postprocess)
         self._initial_errors = len(self._outcome.result.errors)
         self._initial_failures = len(self._outcome.result.failures)
+        self._hint = {}
 
-    def tearDown(self):
-        test_name = self._testMethodName
-        full_test_name = f"{self.__class__.__name__}>{test_name}"
-        # If we're skipping all tests, give the reason and 0 marks
-        if self.skip_all_tests:
-            self.grade_result = GradeResult(None, self.marks[test_name], self.skip_reason)
-        # If the test resulted in an error, the assertion message is lost,
-        # so we give a generic hint
-        if len(self._outcome.result.errors) > self._initial_errors:
-            error = self._outcome.result.errors[0]
-            error_type = "Error"
-            # Attempt to parse the exception type
-            try:
-                error_type = list(reversed(error[1].splitlines()))[0].split(":")[0]
-            except: pass
-            error_hint = f"An error occured during grading ({error_type}). This usually means that a variable or attribute has an unexpected type. Make sure your implementation works with a wide range of possible inputs and write tests to confirm correct behavior"
-            self.grade_result = GradeResult(full_test_name, self.marks[test_name], error_hint, True)
-        # If the test failed properly, we should have a failure hint
-        elif len(self._outcome.result.failures) > self._initial_failures:
-            # Get failure hint
-            global failure_hint
-            # If there's no hint, the test suite is faulty and we don't want
-            # to use it for grading at all and crash instead
-            if failure_hint == None:
-                raise MissingHintException(test_name, error)
-            self.grade_result = GradeResult(full_test_name, self.marks[test_name], failure_hint)
-        else:
-            # Overriding as a success is always OK
-            self.grade_result = GradeResult(full_test_name, self.marks[test_name], None, False, True)
-        failure_hint = None
+    def hint(self, msg=None, lang="en"):
+        if msg == None:
+            raise ValueError
+        self._hint[lang] = msg
+
+    def postprocess(self):
+            test_name = self._testMethodName
+            full_test_name = f"{self.__class__.__name__}>{test_name}"
+            # If we're skipping all tests, give the reason and 0 weight
+            if self.skip_all_tests:
+                self.grade_result = GradeResult(full_test_name, self.weight[test_name], self.skip_reason)
+            else:
+                global import_errors
+                if import_errors:
+                    module, name, e = import_errors[0]
+                    if name is None:
+                        self.hint(f"Failed to {module}: {e}. Make sure your code runs before submitting.")
+                    else:
+                        self.hint(f"Failed to import {name} from {module}: {e}. Make sure your code runs before submitting.")
+                if "en" not in self._hint or self._hint["en"] == None:
+                    hint = MISSING_HINT
+                else:
+                    hint = self._hint["en"]
+                # If the test resulted in an error, the assertion message is lost,
+                # so we give a generic hint
+                if len(self._outcome.result.errors) > self._initial_errors:
+                    error = self._outcome.result.errors[0]
+                    error_type = "Error"
+                    # Attempt to parse the exception type
+                    try:
+                        error_type = list(reversed(error[1].splitlines()))[0].split(":")[0]
+                    except: pass
+                    error_hint = hint + f" (This was caused by an error of type {error_type})."
+                    self.grade_result = GradeResult(full_test_name, self.weight[test_name], error_hint, True)
+                # If the test failed properly, we should have a failure hint
+                elif len(self._outcome.result.failures) > self._initial_failures:
+                    self.grade_result = GradeResult(full_test_name, self.weight[test_name], hint)
+                else:
+                    # Overriding as a success is always OK
+                    self.grade_result = GradeResult(full_test_name, self.weight[test_name], None, False, True)
+            self._hint = None
+
+    def reject_template(self, snippet, min_ast_nodes=20,
+            hint="You must implement more of the solution before resubmitting"):
+        self.hint(hint)
+        import inspect
+        import ast
+        def visit(root):
+            return 1 + sum(map(visit, ast.iter_child_nodes(root)))
+        tree = ast.parse(inspect.getsource(snippet))
+        node_count = visit(tree)
+        if node_count < min_ast_nodes:
+            self.fail()
 
 class TestRunner(TextTestRunner):
     def __init__(self):

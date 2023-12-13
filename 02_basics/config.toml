@@ -14,7 +14,8 @@ end = 2028-01-01T13:00:00
 # ACCESS will show tasks in the order in which they are listed here.
 "tasks" = [
   "variable_assignment",
-  "formula"
+  "friendly_pairs",
+  "arithmetic_expression",
 ]
 
 # Information for at least one language must be specified.

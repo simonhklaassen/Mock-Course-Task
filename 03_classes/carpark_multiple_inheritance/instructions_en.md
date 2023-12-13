@@ -1,6 +1,6 @@
 In this task you will model an object-oriented hierarchy for various car types that is illustrated in the following UML diagram.
 
-![UML for Car Hierarchy](task/resource/cars.png)
+![UML for Car Hierarchy](resource/cars.png)
 
 The root of the hierarchy is the *abstract base class* `Car`. The abstraction is modeled from the perspective of a driver and defines two abstract methods: `get_remaining_range` returns the remaining distance in kilometers (float) and `drive` can be used to drive the car for `dist` kilometers. `Car` has two direct subtypes, `CombustionCar` and `ElectricCar` . Both car types are used differently. 
 
@@ -39,6 +39,6 @@ The implementations of the different cars should handle invalid parameters like 
 
 **Note:** The provided files define the signatures of various classes and functions. Do not change these signatures or the automated grading will fail.
 
-**Note:** You can freely edit `script.py`, which is not relevant for the grading. We also strongly encourage you to add more tests to the task test suite `test_cars.py`.
+**Note:** You can freely edit `script.py`, which is not relevant for the grading. We also strongly encourage you to add more tests to the public test suite `test_cars.py`.
 
 **Note:** You have to submit four files as solution: `car.py`, `combustion_car.py`, `electric_car.py` and `hybrid_car.py`.
