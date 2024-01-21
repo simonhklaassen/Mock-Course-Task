@@ -23,4 +23,12 @@ class GradingTests(AccessTestCase):
         with open("out/data.csv") as file:
             self.assertEqual(file.read(), "'a','b','cdef'\n1,2,3")
 
+    def test_binary(self):
+        self.hint("Binary data not found")
+        pattern = b'\x00\xFF\x00\xFF' * 256
+        with open("out/data.mybin", 'rb') as file:
+            self.hint("Binary data wrong")
+            self.assertEqual(file.read(), pattern)
+
+
 TestRunner().run(AccessTestSuite(1, [GradingTests]))

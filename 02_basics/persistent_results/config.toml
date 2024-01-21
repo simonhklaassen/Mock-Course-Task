@@ -32,5 +32,6 @@ solution = [
 ]
 persist = [
   "out/data.csv",
-  "ball.png"
+  "ball.png",
+  "out/data.mybin"
 ]

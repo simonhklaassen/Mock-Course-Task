@@ -5,3 +5,6 @@ def write_png():
 
 def write_csv():
     pass
+
+def write_binary():
+    pass
