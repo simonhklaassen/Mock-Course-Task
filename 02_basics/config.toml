@@ -23,3 +23,6 @@ end = 2028-01-01T13:00:00
 [information.en]
 title = "Basics"
 
+[information.de]
+title = "Grundlagen"
+

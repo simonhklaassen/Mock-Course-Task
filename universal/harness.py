@@ -72,9 +72,10 @@ class AccessTestSuite(TestSuite):
         awarded_points = (awarded_weight / max_weight) * self.max_points
         grading_results = {"points": awarded_points,
                            "hints": failure_hints + error_hints}
-        #print(grading_results)
         with open('grade_results.json', 'w') as grade_results_file:
             json.dump(grading_results, grade_results_file)
+
+
         return result
 
 class AccessResult(TextTestResult):

@@ -8,6 +8,10 @@ max_points = 2
 title = "Variable assignment"
 instructions_file = "instructions_en.md"
 
+[information.de]
+title = "Variabelzuweisung"
+instructions_file = "instructions_de.md"
+
 [evaluator]
 docker_image = "python:latest"
 run_command = "python task/script.py"
