@@ -24,7 +24,7 @@ and in the URL when displaying content in ACCESS.
 
 **Changing the slug of an existing assignment or task will mean that the
 this assignment/task will be disabled in ACCESS and a new one created in its
-palce! This means all student submissions for the old one will not be visible in
+place! This means all student submissions for the old one will not be visible in
 the newly created assignment/task.**
 
 As such, **slugs should not be changed** if at all possible. In principle,
@@ -34,7 +34,7 @@ visible once again, but this kind of confusion should generally be avoided.
 Note that the directory names of assignments and tasks play no part in this.
 This means that if you wish to re-organize assignments and tasks in the Git
 repository, that's no problem. You can move and rename assignment and task
-directories with no impact on ACCESS, as long as you update the parent's
+directories with no impact on ACCESS, as long as you update the parent's folder
 references in `config.toml` and as long as you do not change any slugs.
 
 ## Configuration files
@@ -63,11 +63,11 @@ Grading in ACCESS is done in three simple steps:
 
  1) Copy the necessary files into a docker container
  2) Execute the `grade_command` specified by the task author and wait for it to finish
- 3) Retrieve the contents from the `grade_results.json` file
+ 3) Retrieve the contents from the `grade_results.json` file created by the grading
 
 Thus, it is entirely up to the task author how to grade solutions. Typically,
 the task author will write some script that checks the student's solution,
-usually using some kind of unittesting. The only requirement is that at the end
+usually using some kind of unit testing. The only requirement is that at the end
 of grading, `grade_result.json` is written to the working directory. The file
 needs to conform to the following example, indicating how many points the
 student should get, plus a list of hints:
@@ -88,7 +88,7 @@ student should receive the most general hints first.
 Grading in ACCESS is note quite the same as regular unit testing for the
 following reasons:
 
- * The student's submission could be literally anything, so we cannot expect that even basic things like importing or parsing the solution will succeed. Thus, it is important to catch all such errors and provide appropriate hints, rather than just crashing.
+ * The student's submission could be literally anything, so we cannot expect that even basic things like importing or parsing the solution will succeed. Thus, it is important to catch all such errors and provide appropriate hints, rather than just crashing. For Python, the provided [test harness](universal/harness.py) - see [README](universal/README.md) - takes care of many of these problems.
  * It might make sense to write much more basic tests than one would in normal programming. For example, rather than just checking whether a function returns the correct number, it might make sense to even check whether it returns a number at all, and give the student a corresponding hint if it does not.
 
 ## i18n
@@ -98,11 +98,20 @@ languages. English is required (for now).
 
 ## Validation
 
-To validate this course or any of its assignments and tasks using `access-cli`, run
+[access-cli](https://github.com/mp-access/access_cli) can validate courses, assignments, and tasks.
+See its README.md for more information.
+
+To validate this course or any of its assignments and tasks using `access-cli`, on Linux or Mac, run:
 
 ```
-access-cli -AGs "rm -R task; cp -R solution task" -d ./ -f universal/harness.py -C ./
+access-cli -AGs "cp -R solution/* task/"
 ```
 
-Add `-v` for verbose output.
+On Windows, run:
+
+```
+access-cli -AGs "xcopy solution\* task\ /E /I /Y" -v
+```
+
+Add `-v` for verbose output. The `-s` flag tells access-cli how to "solve" a task. For this repo, it means copying over the sample solution to the task directory.
 
