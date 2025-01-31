@@ -16,6 +16,7 @@ end = 2028-01-01T13:00:00
   "variable_assignment",
   "friendly_pairs",
   "arithmetic_expression",
+  "arithmetic_expression_simon",
   "persistent_results",
 ]
 

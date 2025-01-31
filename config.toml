@@ -1,5 +1,5 @@
 # Mandatory. This slug will be used for the URL of the course.
-slug = "access-mock-course"
+slug = "access-mock-course-simon"
 
 # Path to optional logo for the course. If absent, a generic logo will be shown.
 logo = "python.svg"
